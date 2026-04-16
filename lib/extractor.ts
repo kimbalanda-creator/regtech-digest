@@ -10,9 +10,8 @@ export type DigestItem = {
   publishedDate?: string;
 };
 
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY! });
-
 export async function extractDigestItems(scraped: ScrapedItem[]): Promise<DigestItem[]> {
+  const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY! });
   if (scraped.length === 0) return [];
 
   const prompt = scraped.map(item => `

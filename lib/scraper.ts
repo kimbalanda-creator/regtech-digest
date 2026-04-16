@@ -9,10 +9,9 @@ export type ScrapedItem = {
   publishedDate?: string;
 };
 
-const firecrawl = new FirecrawlApp({ apiKey: process.env.FIRECRAWL_API_KEY! });
-
 export async function scrapeSource(source: Source): Promise<ScrapedItem[]> {
   const targetUrl = source.scrapeUrl ?? source.url;
+  const firecrawl = new FirecrawlApp({ apiKey: process.env.FIRECRAWL_API_KEY! });
 
   try {
     const result = await (firecrawl as any).scrape(targetUrl, {
