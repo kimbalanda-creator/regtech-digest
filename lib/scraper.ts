@@ -28,7 +28,8 @@ export async function scrapeSource(source: Source): Promise<ScrapedItem[]> {
       snippet: result.markdown.slice(0, 8000), // cap for Claude context
     }];
   } catch (err) {
-    console.error(`Scrape failed for ${source.name}:`, err);
-    return [];
+    const msg = err instanceof Error ? err.message : String(err);
+    console.error(`Scrape failed for ${source.name}:`, msg);
+    throw new Error(`${source.name}: ${msg}`);
   }
 }
