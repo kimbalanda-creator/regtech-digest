@@ -15,9 +15,9 @@ export async function scrapeSource(source: Source): Promise<ScrapedItem[]> {
   const targetUrl = source.scrapeUrl ?? source.url;
 
   try {
-    const result = await firecrawl.scrapeUrl(targetUrl, {
+    const result = await (firecrawl as any).scrape(targetUrl, {
       formats: ['markdown'],
-    });
+    }) as { success: boolean; markdown?: string };
 
     if (!result.success || !result.markdown) return [];
 
