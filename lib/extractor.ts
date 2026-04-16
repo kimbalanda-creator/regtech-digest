@@ -23,7 +23,7 @@ ${item.snippet}
 
   const message = await anthropic.messages.create({
     model: 'claude-sonnet-4-6',
-    max_tokens: 2048,
+    max_tokens: 4096,
     system: `You are a regulatory and fintech intelligence analyst. Extract news items from the provided scraped web content that are relevant to: identity verification, fraud prevention, AML/KYC compliance, regulatory updates, and regtech vendor news.
 
 For each relevant item found, output a JSON array with objects containing:
@@ -34,7 +34,7 @@ For each relevant item found, output a JSON array with objects containing:
 - sourceType: "regulatory" or "vendor" (string)
 - publishedDate: date if visible in content, otherwise null (string or null)
 
-Only include items published or updated recently (within the last 7 days if dates are visible). If no relevant items are found for a source, return an empty array for that source. Return ONLY valid JSON — no markdown, no explanation.`,
+Include the most relevant items you find — up to 3 per source. If dates are visible, include them; if not, still include the item. Prioritise announcements, product updates, regulatory guidance, and thought leadership over generic marketing content. Return ONLY valid JSON — no markdown, no explanation.`,
     messages: [{ role: 'user', content: `Extract relevant digest items from this content:\n\n${prompt}` }],
   });
 
